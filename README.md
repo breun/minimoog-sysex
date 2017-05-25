@@ -77,9 +77,29 @@ Example usage in Java:
     import nl.breun.minimoog.sysex.parameter.DeviceId
     import nl.breun.minimoog.sysex.parameter.KeyPriority
     
-    Minimoog minimoog = new Minimoog(receiver, transmitter, DeviceId.ALL)
-    minimoog.setMidiChannelIn(5)
-    minimoog.setKeyPriority(KeyPriority.LAST)
+    import javax.sound.midi.Receiver
+    import javax.sound.midi.Transmitter
+    
+    class Example {
+    
+        public static void main(String[] args) {
+    
+            // Initialize your MIDI receiver (MIDI Out port)
+            Receiver receiver = ... 
+            
+            // Initialize your MIDI transmitter (MIDI In port)
+            Transmitter transmitter = ...
+    
+            // Create a Minimoog instance
+            Minimoog minimoog = new Minimoog(receiver, transmitter, DeviceId.ALL)
+            
+            // Change the MIDI input channel
+            minimoog.setMidiChannelIn(5)
+            
+            // Change the key priority
+            minimoog.setKeyPriority(KeyPriority.LAST)
+        }
+    }
     
     
 Data Sheet
