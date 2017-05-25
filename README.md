@@ -62,7 +62,7 @@ On Windows you may be able to use `mvnw.cmd` instead of `./mvnw`.
     
 Run it like this:
     
-    $ java -jar target/minimoog-sysex-X.Y.Z-SNAPSHOT.jar
+    $ java -jar target/minimoog-sysex-X.Y.Z-SNAPSHOT-jar-with-dependencies.jar
 
 Library
 -------
