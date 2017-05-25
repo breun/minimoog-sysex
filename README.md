@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/breun/minimoog-sysex.svg?branch=master)](https://travis-ci.org/breun/minimoog-sysex)
+
 Minimoog Model D SysEx Tool
 ===========================
 
