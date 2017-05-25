@@ -3,9 +3,11 @@
 Minimoog Model D SysEx Tool
 ===========================
 
-The 2016 reissue of the [Minimoog Model D](https://www.moogmusic.com/products/minimoog/minimoog-model-d) synthesizer added MIDI support to this iconic instrument.
+The 2016 reissue of the [Minimoog Model D](https://www.moogmusic.com/products/minimoog/minimoog-model-d) synthesizer
+added MIDI support to this iconic instrument.
 
-This software supports changing global parameters via SysEx and who knows, maybe some day I'll add a CLI or GUI. Currently it is mostly a library that can be used on the Java Virtual Machine (JVM).
+This software supports changing global parameters via SysEx and who knows, maybe some day I'll add a CLI or GUI.
+Currently it is mostly a library that can be used on the Java Virtual Machine (JVM).
 
 Supported Features
 ------------------
@@ -48,6 +50,14 @@ And the following calibration commands are supported:
 * Start pressure calibration
 
 Note that you need a reasonably good digital volt meter to perform these calibration procedures. Please refer to Moog's official data sheet (see below) for full calibration instructions.
+
+Connecting Hardware
+-------------------
+
+Don't forget to connect your synth to your computer via MIDI. You'll need to connect your computer's MIDI out to your
+synth's MIDI in to be able to send commands to the synth, but some commands also require the synth being able to send
+data back to your computer, so also connect your computer's MIDI in to your synth's MIDI out.
+
 
 Build and Run
 -------------
