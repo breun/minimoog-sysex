@@ -73,6 +73,7 @@ Example usage in Java:
 
     import nl.breun.minimoog.sysex.Minimoog
     import nl.breun.minimoog.sysex.parameter.DeviceId
+    import nl.breun.minimoog.sysex.parameter.KeyPriority
     
     Minimoog minimoog = new Minimoog(receiver, transmitter, DeviceId.ALL)
     minimoog.setMidiChannelIn(5)
