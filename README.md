@@ -64,6 +64,8 @@ Run it like this:
     
     $ java -jar target/minimoog-sysex-X.Y.Z-SNAPSHOT-jar-with-dependencies.jar
 
+Currently there is no real CLI/GUI yet, so only some information about the MIDI devices on your system is printed.
+
 Library
 -------
 
