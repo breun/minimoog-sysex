@@ -2,6 +2,9 @@ package nl.breun.minimoog.sysex
 
 import javax.sound.midi.SysexMessage
 
+private val hexChars = arrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        'A', 'B', 'C', 'D', 'E', 'F')
+
 fun message(hex: String): SysexMessage {
     val bytes = hexStringToByteArray(hex)
     return message(bytes)
@@ -28,10 +31,9 @@ fun lsb(value: Int): Byte {
 private fun hexStringToByteArray(hex: String): ByteArray {
     val stripped = hex.replace(" ", "").toUpperCase()
     val result = ByteArray(stripped.length / 2)
-    val HEX_CHARS = "0123456789ABCDEF"
     for (i in 0 until stripped.length step 2) {
-        val firstIndex = HEX_CHARS.indexOf(stripped[i])
-        val secondIndex = HEX_CHARS.indexOf(stripped[i + 1])
+        val firstIndex = hexChars.indexOf(stripped[i])
+        val secondIndex = hexChars.indexOf(stripped[i + 1])
 
         val octet = firstIndex.shl(4).or(secondIndex)
         result[i.shr(1)] = octet.toByte()
