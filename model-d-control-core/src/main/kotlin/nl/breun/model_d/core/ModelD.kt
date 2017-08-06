@@ -218,6 +218,6 @@ class ModelD(
 
     private fun send(message: SysexMessage) {
         receiver.send(message, -1)
-        log.debug("Sent SysEx message: ${message.data}")
+        log.info("Sent SysEx message: ${hexString(message)}")
     }
 }

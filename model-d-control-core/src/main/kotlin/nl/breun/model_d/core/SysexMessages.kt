@@ -1,12 +1,11 @@
 package nl.breun.model_d.core
 
+import org.apache.commons.codec.binary.Hex
 import javax.sound.midi.SysexMessage
 
-private val hexChars = arrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-        'A', 'B', 'C', 'D', 'E', 'F')
-
 fun message(hex: String): SysexMessage {
-    val bytes = hexStringToByteArray(hex)
+    val chars = hex.replace(" ", "").toUpperCase().toCharArray()
+    val bytes = Hex.decodeHex(chars)
     return message(bytes)
 }
 
@@ -28,15 +27,9 @@ fun lsb(value: Int): Byte {
     return (value % 128).toByte() // 2^7 = 128
 }
 
-private fun hexStringToByteArray(hex: String): ByteArray {
-    val stripped = hex.replace(" ", "").toUpperCase()
-    val result = ByteArray(stripped.length / 2)
-    for (i in 0 until stripped.length step 2) {
-        val firstIndex = hexChars.indexOf(stripped[i])
-        val secondIndex = hexChars.indexOf(stripped[i + 1])
-
-        val octet = firstIndex.shl(4).or(secondIndex)
-        result[i.shr(1)] = octet.toByte()
-    }
-    return result
+fun hexString(message: SysexMessage): String {
+    val sysexStartArray = ByteArray(1, { _ -> SysexMessage.SYSTEM_EXCLUSIVE.toByte() })
+    return Hex.encodeHexString(sysexStartArray + message.data)
+            .replace("..".toRegex(), "\$0 ").trim() // Insert spaces between every two chars
+            .toUpperCase()
 }
