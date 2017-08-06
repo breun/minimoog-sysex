@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/breun/minimoog-sysex.svg?branch=master)](https://travis-ci.org/breun/minimoog-sysex)
+[![Build Status](https://travis-ci.org/breun/model-d-control.svg?branch=master)](https://travis-ci.org/breun/model-d-control)
 
 Model D Control
 ===============
@@ -6,9 +6,7 @@ Model D Control
 The 2016 reissue of Moog's [Minimoog Model D](https://www.moogmusic.com/products/minimoog/minimoog-model-d) synthesizer
 added MIDI support to this iconic instrument.
 
-The software in this project can be used to modify various
-
-This project contains both a core library to use in your 
+This project contains a simple program to control global parameters and trigger commands. There is also a core library that you could use in your own software.
 
 Supported Features
 ------------------
