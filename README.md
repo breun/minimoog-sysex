@@ -1,28 +1,29 @@
 [![Build Status](https://travis-ci.org/breun/minimoog-sysex.svg?branch=master)](https://travis-ci.org/breun/minimoog-sysex)
 
-Minimoog Model D SysEx Tool
-===========================
+Model D Control
+===============
 
-The 2016 reissue of the [Minimoog Model D](https://www.moogmusic.com/products/minimoog/minimoog-model-d) synthesizer
+The 2016 reissue of Moog's [Minimoog Model D](https://www.moogmusic.com/products/minimoog/minimoog-model-d) synthesizer
 added MIDI support to this iconic instrument.
 
-This software supports changing global parameters via SysEx and who knows, maybe some day I'll add a CLI or GUI.
-Currently it is mostly a library that can be used on the Java Virtual Machine (JVM).
+The software in this project can be used to modify various
+
+This project contains both a core library to use in your 
 
 Supported Features
 ------------------
 
 There is support for setting the following global parameters:
 
-* Device ID (0-15)
-* MIDI Channel In (0-15)
-* MIDI Channel Out (0-15)
+* Device ID (0-15 or all)
+* MIDI Channel In (1-16)
+* MIDI Channel Out (1-16)
 * Key Priority (low, last, high)
 * Multi Trigger (off, on)
 * Bend Semitones (0-12 semitones)
 * Output MIDI Pitch Bend (off, on)
 * Output MIDI Pressure (off, on)
-* Gate/Trigger Sources (external, external+local, external+MIDI, external+local+MIDI)
+* Gate/Trigger Sources (external, external+local, external+ MIDI, external+local+MIDI)
 * Tuning Error (off, on)
 * Tuning Variance (0.0 to 50.0 cents)
 * Tuning Program (twelve tone equal temperament and 3 custom MIDI tuning standard programs)
@@ -56,15 +57,12 @@ Connecting Hardware
 
 Don't forget to connect your synth to your computer via MIDI. You'll need to connect your computer's MIDI out to your
 synth's MIDI in to be able to send commands to the synth, but some commands also require the synth being able to send
-data back to your computer, so also connect your computer's MIDI in to your synth's MIDI out.
-
+data back to your computer, so also connect your synth's MIDI out to your computer's MIDI in.
 
 Build and Run
 -------------
-
-For now this a source-only repository, so you will not find any ready to go releases.
  
-This software is written in [Kotlin](https://kotlinlang.org), but the only requirement for building from source is [Oracle's Java SE Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
+This software is written in [Kotlin](https://kotlinlang.org). The only requirement for building from source is [Oracle's Java SE Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 
 Build the source:
 
@@ -72,22 +70,22 @@ Build the source:
     
 On Windows you may be able to use `mvnw.cmd` instead of `./mvnw`.
     
-Run it like this:
+Run the GUI like this:
     
-    $ java -jar target/minimoog-sysex-X.Y.Z-SNAPSHOT-jar-with-dependencies.jar
+    $ java -jar model-d-control-ui/target/model-d-control-ui-X.Y.Z-SNAPSHOT-jar-with-dependencies.jar
 
 Currently there is no real CLI/GUI yet, so only some information about the MIDI devices on your system is printed.
 
 Library
 -------
 
-I plan on keeping the library and CLI/GUI separate, so you can use the functionality in your own programs as well.
+The core library and GUI are in separate modules, so you can use the functionality of the core library in your own programs as well.
 
 Example usage in Java:
 
-    import nl.breun.minimoog.sysex.Minimoog
-    import nl.breun.minimoog.sysex.parameter.DeviceId
-    import nl.breun.minimoog.sysex.parameter.KeyPriority
+    import ModelD
+    import DeviceId
+    import KeyPriority
     
     import javax.sound.midi.Receiver
     import javax.sound.midi.Transmitter
@@ -102,14 +100,14 @@ Example usage in Java:
             // Initialize your MIDI transmitter (MIDI In port)
             Transmitter transmitter = ...
     
-            // Create a Minimoog instance
-            Minimoog minimoog = new Minimoog(receiver, transmitter, DeviceId.ALL)
+            // Create a ModelD instance
+            ModelD modelD = new ModelD(receiver, transmitter, DeviceId.ALL)
             
             // Change the MIDI input channel
-            minimoog.setMidiChannelIn(5)
+            modelD.setMidiChannelIn(5)
             
             // Change the key priority
-            minimoog.setKeyPriority(KeyPriority.LAST)
+            modelD.setKeyPriority(KeyPriority.LAST)
         }
     }
     
