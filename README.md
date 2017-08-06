@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/breun/model-d-control.svg?branch=master)](https://travis-ci.org/breun/model-d-control)
 
+Note: unfinished software ahead. Pre-alpha!
+
 Model D Control
 ===============
 

@@ -4,7 +4,7 @@ import java.awt.GridLayout
 import javax.sound.midi.MidiDevice
 import javax.swing.*
 
-class ChooseMidiPortsWindow(midiOuts: List<MidiDevice>, midiIns: List<MidiDevice>) : JFrame("Select MIDI ports") {
+class ChooseMidiPortsWindow(midiOuts: List<MidiDevice>, midiIns: List<MidiDevice>) : JFrame("Select MIDI Ports") {
 
     private var selectedMidiOut: MidiDevice? = null
     private var selectedMidiIn: MidiDevice? = null
