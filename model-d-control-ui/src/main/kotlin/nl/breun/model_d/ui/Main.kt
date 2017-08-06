@@ -1,34 +1,31 @@
 package nl.breun.model_d.ui
 
-import javax.sound.midi.MidiDevice
 import javax.sound.midi.MidiSystem
 
 fun main(args: Array<String>) {
-    val midiDeviceInfo = MidiSystem.getMidiDeviceInfo()
+    val midiDevices = MidiSystem.getMidiDeviceInfo()
+            .map { MidiSystem.getMidiDevice(it) }
 
-    print(midiDeviceInfo)
-
-    /*
-    val transmitterInfo = midiDeviceInfo[1] // TODO: Select midiIn through GUI or startup arguments?
-    val receiverInfo = midiDeviceInfo[2] // TODO: Select midiOut through GUI or startup arguments?
-
-    val midiIn = MidiSystem.getMidiDevice(transmitterInfo).midiIn
-    val midiOut = MidiSystem.getMidiDevice(receiverInfo).midiOut
-
-    val modelD = ModelD(midiOut, midiIn, DeviceId.ALL) // TODO: Select device ID through GUI or startup arguments?
-    val firmwareVersion = minimoog.getFirmwareVersion()
-
-    println("Firmware version: $firmwareVersion")
-    */
-}
-
-fun print(midiDeviceInfo: Array<MidiDevice.Info>) {
-    midiDeviceInfo.forEachIndexed { index, info ->
+    // TODO: Remove this debug info
+    midiDevices.forEachIndexed { index, device ->
+        val info = device.deviceInfo
         println("Index: $index")
         println("Name: ${info.name}")
         println("Vendor: ${info.vendor}")
         println("Description: ${info.description}")
         println("Version: ${info.version}")
+        println("Max receivers: ${device.maxReceivers}")
+        println("Max transmitters: ${device.maxTransmitters}")
         println("")
+    }
+
+    val midiOuts = midiDevices.filter { it.maxReceivers != 0 }
+
+    val midiIns = midiDevices.filter { it.maxTransmitters != 0 }
+
+    if (midiOuts.isNotEmpty()) {
+        ChooseMidiPortsWindow(midiOuts, midiIns)
+    } else {
+        println("No MIDI outs available, exiting...")
     }
 }

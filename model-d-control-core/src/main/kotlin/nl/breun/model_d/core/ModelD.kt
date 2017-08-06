@@ -3,14 +3,25 @@ package nl.breun.model_d.core
 import nl.breun.model_d.core.parameter.*
 import nl.breun.model_d.core.parameter.GlobalParameter.*
 import org.slf4j.LoggerFactory
+import javax.sound.midi.MidiDevice
 import javax.sound.midi.Receiver
 import javax.sound.midi.SysexMessage
-import javax.sound.midi.Transmitter
 
-class ModelD(val midiOut: Receiver, val midiIn: Transmitter, val deviceId: DeviceId) {
+class ModelD(
+        midiOut: MidiDevice,
+        //midiIn: MidiDevice,
+        val deviceId: DeviceId) {
 
     companion object {
         private val log = LoggerFactory.getLogger(ModelD::class.java)
+    }
+
+    private val receiver: Receiver
+    //private val transmitter: Transmitter
+
+    init {
+        receiver = midiOut.receiver
+        //transmitter = midiIn.transmitter
     }
 
     fun setDeviceId(deviceId: DeviceId) {
@@ -206,7 +217,7 @@ class ModelD(val midiOut: Receiver, val midiIn: Transmitter, val deviceId: Devic
     }
 
     private fun send(message: SysexMessage) {
-        midiOut.send(message, -1)
+        receiver.send(message, -1)
         log.debug("Sent SysEx message: ${message.data}")
     }
 }
