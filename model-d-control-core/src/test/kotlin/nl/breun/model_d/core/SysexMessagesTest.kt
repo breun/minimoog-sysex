@@ -2,6 +2,7 @@ package nl.breun.model_d.core
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import javax.sound.midi.SysexMessage
 
 class SysexMessagesTest {
 
@@ -10,15 +11,32 @@ class SysexMessagesTest {
         val message = message("F0 04 15 7F 15 00 00 00 F7")
 
         assertThat(message.length).isEqualTo(9)
-        assertThat(message.status).isEqualTo(0xF0)
-        assertThat(message.data[0]).isEqualTo(0x04.toByte())
-        assertThat(message.data[1]).isEqualTo(0x15.toByte())
-        assertThat(message.data[2]).isEqualTo(0x7F.toByte())
-        assertThat(message.data[3]).isEqualTo(0x15.toByte())
-        assertThat(message.data[4]).isEqualTo(0x00.toByte())
-        assertThat(message.data[5]).isEqualTo(0x00.toByte())
-        assertThat(message.data[6]).isEqualTo(0x00.toByte())
-        assertThat(message.data[7]).isEqualTo(0xF7.toByte())
+        assertThat(message.status).isEqualTo(SysexMessage.SYSTEM_EXCLUSIVE)
+
+        // Data does not include status byte
+        val data = message.data
+        assertThat(data.size).isEqualTo(8)
+        assertThat(data[0]).isEqualTo(0x04.toByte())
+        assertThat(data[1]).isEqualTo(0x15.toByte())
+        assertThat(data[2]).isEqualTo(0x7F.toByte())
+        assertThat(data[3]).isEqualTo(0x15.toByte())
+        assertThat(data[4]).isEqualTo(0x00.toByte())
+        assertThat(data[5]).isEqualTo(0x00.toByte())
+        assertThat(data[6]).isEqualTo(0x00.toByte())
+        assertThat(data[7]).isEqualTo(0xF7.toByte())
+
+        // Message includes status byte
+        val bytes = message.message
+        assertThat(bytes.size).isEqualTo(9)
+        assertThat(bytes[0]).isEqualTo(SysexMessage.SYSTEM_EXCLUSIVE.toByte())
+        assertThat(bytes[1]).isEqualTo(0x04.toByte())
+        assertThat(bytes[2]).isEqualTo(0x15.toByte())
+        assertThat(bytes[3]).isEqualTo(0x7F.toByte())
+        assertThat(bytes[4]).isEqualTo(0x15.toByte())
+        assertThat(bytes[5]).isEqualTo(0x00.toByte())
+        assertThat(bytes[6]).isEqualTo(0x00.toByte())
+        assertThat(bytes[7]).isEqualTo(0x00.toByte())
+        assertThat(bytes[8]).isEqualTo(0xF7.toByte())
     }
 
     @Test
