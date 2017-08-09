@@ -28,8 +28,7 @@ fun lsb(value: Int): Byte {
 }
 
 fun hexString(message: SysexMessage): String {
-    val sysexStartArray = ByteArray(1, { _ -> SysexMessage.SYSTEM_EXCLUSIVE.toByte() })
-    return Hex.encodeHexString(sysexStartArray + message.data)
+    return Hex.encodeHexString(message.message)
             .replace("..".toRegex(), "\$0 ").trim() // Insert spaces between every two chars
             .toUpperCase()
 }

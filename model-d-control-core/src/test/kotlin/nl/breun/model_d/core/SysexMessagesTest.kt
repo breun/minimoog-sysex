@@ -2,6 +2,7 @@ package nl.breun.model_d.core
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import javax.sound.midi.ShortMessage
 import javax.sound.midi.SysexMessage
 
 class SysexMessagesTest {
@@ -23,7 +24,7 @@ class SysexMessagesTest {
         assertThat(data[4]).isEqualTo(0x00.toByte())
         assertThat(data[5]).isEqualTo(0x00.toByte())
         assertThat(data[6]).isEqualTo(0x00.toByte())
-        assertThat(data[7]).isEqualTo(0xF7.toByte())
+        assertThat(data[7]).isEqualTo(ShortMessage.END_OF_EXCLUSIVE.toByte())
 
         // Message includes status byte
         val bytes = message.message
@@ -36,7 +37,7 @@ class SysexMessagesTest {
         assertThat(bytes[5]).isEqualTo(0x00.toByte())
         assertThat(bytes[6]).isEqualTo(0x00.toByte())
         assertThat(bytes[7]).isEqualTo(0x00.toByte())
-        assertThat(bytes[8]).isEqualTo(0xF7.toByte())
+        assertThat(bytes[8]).isEqualTo(ShortMessage.END_OF_EXCLUSIVE.toByte())
     }
 
     @Test

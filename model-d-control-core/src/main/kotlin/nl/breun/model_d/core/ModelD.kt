@@ -29,12 +29,18 @@ class ModelD(
         log.info("Set device ID to $deviceId")
     }
 
+    /**
+     * Set the MIDI in channel (1-16).
+     */
     fun setMidiChannelIn(channel: Int) {
         validateMidiChannel(channel)
         setGlobalParameter(MIDI_CHANNEL_IN, channel - 1)
         log.info("Set MIDI input channel to $channel")
     }
 
+    /**
+     * Set the MIDI out channel (1-16).
+     */
     fun setMidiChannelOut(channel: Int) {
         validateMidiChannel(channel)
         setGlobalParameter(MIDI_CHANNEL_OUT, channel - 1)
@@ -51,6 +57,9 @@ class ModelD(
         log.info("Set multi-trigger to $status")
     }
 
+    /**
+     * Set the maximum amount of semitones for a pitch bend (0-12).
+     */
     fun setBendSemitones(semitones: Int) {
         if (semitones < 0 || semitones > 12) throw IllegalArgumentException("bend semitones: [0, 12]")
         setGlobalParameter(BEND_SEMITONES, semitones)
@@ -77,6 +86,9 @@ class ModelD(
         log.info("Set tuning error to $status")
     }
 
+    /**
+     * Set the tuning variance from 0.0 to 50.0 cents.
+     */
     fun setTuningVariance(cents: Double) {
         if (cents < 0 || cents > 50) throw IllegalArgumentException("cents: [0.0, 50.0]")
         setGlobalParameter(TUNING_VARIANCE, (cents * 10).toInt()) // unit is 0.1 cent
@@ -93,12 +105,18 @@ class ModelD(
         log.info("Set velocity curve to $curve")
     }
 
+    /**
+     * Set the number of semitones for MIDI in transpose (-12 to +12).
+     */
     fun setMidiInTranspose(semitones: Int) {
         validateTransposeSemitones(semitones)
         setGlobalParameter(MIDI_IN_TRANSPOSE, semitones + 12)
         log.info("Set MIDI input transpose to $semitones semi-tones")
     }
 
+    /**
+     * Set the number of semitones for MIDI out transpose (-12 to +12).
+     */
     fun setMidiOutTranspose(semitones: Int) {
         validateTransposeSemitones(semitones)
         setGlobalParameter(MIDI_OUT_TRANSPOSE, semitones + 12)
@@ -110,6 +128,9 @@ class ModelD(
         log.info("Set pressure CV range to $range")
     }
 
+    /**
+     * Set the MIDI note for 0 volts from 0 (C0) to 127 (G10).
+     */
     fun setMidiNoteZeroVolts(note: Int) {
         if (note < 0 || note > 127) throw IllegalArgumentException("note: [0, 127]")
         setGlobalParameter(MIDI_NOTE_ZERO_VOLTS, note)

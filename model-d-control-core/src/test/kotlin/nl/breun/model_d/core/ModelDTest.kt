@@ -13,6 +13,7 @@ import org.junit.Before
 import org.junit.Test
 import javax.sound.midi.MidiDevice
 import javax.sound.midi.Receiver
+import javax.sound.midi.ShortMessage
 import javax.sound.midi.SysexMessage
 
 class ModelDTest {
@@ -430,7 +431,7 @@ class ModelDTest {
     private fun assertGlobalParameterMessageBytes(bytes: ByteArray) {
         assertThat(bytes[0])
                 .describedAs(TextDescription("First byte (status byte, constant)"))
-                .isEqualTo(0xF0.toByte())
+                .isEqualTo(SysexMessage.SYSTEM_EXCLUSIVE.toByte())
 
         assertThat(bytes[1])
                 .describedAs(TextDescription("Second byte (constant)"))
@@ -446,7 +447,7 @@ class ModelDTest {
 
         assertThat(bytes[8])
                 .describedAs(TextDescription("Ninth byte (end byte, constant)"))
-                .isEqualTo(0xF7.toByte())
+                .isEqualTo(ShortMessage.END_OF_EXCLUSIVE.toByte())
     }
 
     private fun assertDeviceId(bytes: ByteArray) {
