@@ -52,8 +52,8 @@ class ModelD(
     }
 
     fun setBendSemitones(semitones: Int) {
-        if (semitones < 0 || semitones > 12) throw IllegalArgumentException("semitones: [0, 12]")
-        setGlobalParameter(BEND_SEMITONES, semitones + 12)
+        if (semitones < 0 || semitones > 12) throw IllegalArgumentException("bend semitones: [0, 12]")
+        setGlobalParameter(BEND_SEMITONES, semitones)
         log.info("Set pitch bend to $semitones semi-tones")
     }
 
@@ -94,13 +94,13 @@ class ModelD(
     }
 
     fun setMidiInTranspose(semitones: Int) {
-        if (semitones < -12 || semitones > 12) throw IllegalArgumentException("semitones: [-12, 12]")
+        validateTransposeSemitones(semitones)
         setGlobalParameter(MIDI_IN_TRANSPOSE, semitones + 12)
         log.info("Set MIDI input transpose to $semitones semi-tones")
     }
 
     fun setMidiOutTranspose(semitones: Int) {
-        if (semitones < -12 || semitones > 12) throw IllegalArgumentException("semitones: [-12, 12]")
+        validateTransposeSemitones(semitones)
         setGlobalParameter(MIDI_OUT_TRANSPOSE, semitones + 12)
         log.info("Set MIDI output transpose to $semitones semi-tones")
     }
@@ -185,6 +185,10 @@ class ModelD(
 
     private fun validateMidiChannel(channel: Int) {
         if (channel < 1 || channel > 16) throw IllegalArgumentException("channel: [1, 16]")
+    }
+
+    private fun validateTransposeSemitones(semitones: Int) {
+        if (semitones < -12 || semitones > 12) throw IllegalArgumentException("transpose semitones: [-12, 12]")
     }
 
     private fun setGlobalParameter(globalParameter: GlobalParameter, value: Int) {
