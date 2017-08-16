@@ -11,7 +11,7 @@ import javax.swing.JFrame
 
 class ModelDWindow(midiOut: MidiDevice, midiIn: MidiDevice) : JFrame("Model D Control") {
 
-    private val modelD: ModelD = ModelD(midiOut, DeviceId.ALL) // TODO: Device ID?
+    private val modelD = ModelD(midiOut, DeviceId.ALL) // TODO: Device ID?
 
     init {
         // TODO: Remove
