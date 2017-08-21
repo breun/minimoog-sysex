@@ -42,7 +42,7 @@ class SysexMessagesTest {
 
     @Test
     fun lsb() {
-                                                      //   MSB     LSB
+                                                            //   MSB     LSB
         assertThat(lsb(0)).isEqualTo(0x00.toByte())   // 0000000 0000000
         assertThat(lsb(127)).isEqualTo(0x7F.toByte()) // 0000000 1111111
         assertThat(lsb(128)).isEqualTo(0x00.toByte()) // 0000001 0000000
@@ -51,7 +51,7 @@ class SysexMessagesTest {
 
     @Test
     fun msb() {
-                                                      //   MSB     LSB
+                                                            //   MSB     LSB
         assertThat(msb(0)).isEqualTo(0x00.toByte())   // 0000000 0000000
         assertThat(msb(127)).isEqualTo(0x00.toByte()) // 0000000 1111111
         assertThat(msb(128)).isEqualTo(0x01.toByte()) // 0000001 0000000
