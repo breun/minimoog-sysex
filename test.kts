@@ -20,7 +20,6 @@ if (midiOut != null) {
 
     receiver.close()
     midiOut.close()
-
 } else {
     println("Presonus MIDI out not found")
 }
