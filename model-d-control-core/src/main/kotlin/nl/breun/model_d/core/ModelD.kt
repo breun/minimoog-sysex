@@ -27,21 +27,13 @@ class ModelD(
         log.info { "Set device ID to $deviceId" }
     }
 
-    /**
-     * Set the MIDI in channel (1-16).
-     */
-    fun setMidiChannelIn(channel: Int) {
-        validateMidiChannel(channel)
-        setGlobalParameter(MIDI_CHANNEL_IN, channel - 1)
+    fun setMidiChannelIn(channel: MidiChannel) {
+        setGlobalParameter(MIDI_CHANNEL_IN, channel.value - 1)
         log.info { "Set MIDI input channel to $channel" }
     }
 
-    /**
-     * Set the MIDI out channel (1-16).
-     */
-    fun setMidiChannelOut(channel: Int) {
-        validateMidiChannel(channel)
-        setGlobalParameter(MIDI_CHANNEL_OUT, channel - 1)
+    fun setMidiChannelOut(channel: MidiChannel) {
+        setGlobalParameter(MIDI_CHANNEL_OUT, channel.value - 1)
         log.info { "Set MIDI output channel to $channel" }
     }
 
@@ -129,9 +121,8 @@ class ModelD(
     /**
      * Set the MIDI note for 0 volts from 0 (C0) to 127 (G10).
      */
-    fun setMidiNoteZeroVolts(note: Int) {
-        if (note < 0 || note > 127) throw IllegalArgumentException("note: [0, 127]")
-        setGlobalParameter(MIDI_NOTE_ZERO_VOLTS, note)
+    fun setMidiNoteZeroVolts(note: MidiNote) {
+        setGlobalParameter(MIDI_NOTE_ZERO_VOLTS, note.value)
         log.info { "Set MIDI note zero volts to $note" }
     }
 
@@ -183,10 +174,6 @@ class ModelD(
     fun startPitchWheelCalibration() = send("F0 04 15 7F 18 00 00 00 F7")
 
     fun startPressureCalibration() = send("F0 04 15 7F 19 00 00 00 F7")
-
-    private fun validateMidiChannel(channel: Int) {
-        if (channel < 1 || channel > 16) throw IllegalArgumentException("channel: [1, 16]")
-    }
 
     private fun validateTransposeSemitones(semitones: Int) {
         if (semitones < -12 || semitones > 12) throw IllegalArgumentException("transpose semitones: [-12, 12]")

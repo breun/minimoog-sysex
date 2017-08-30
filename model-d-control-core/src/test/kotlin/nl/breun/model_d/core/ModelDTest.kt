@@ -64,54 +64,26 @@ class ModelDTest {
 
     @Test
     fun `Set MIDI channel in to 1`() {
-        modelD.setMidiChannelIn(1)
+        modelD.setMidiChannelIn(MidiChannel._1)
         assertGlobalParameterMessage(1, 0, 0)
     }
 
     @Test
     fun `Set MIDI channel in to 16`() {
-        modelD.setMidiChannelIn(16)
+        modelD.setMidiChannelIn(MidiChannel._16)
         assertGlobalParameterMessage(1, 0, 15)
     }
 
     @Test
-    fun `Throw exception when trying to set MIDI channel in to zero`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-                .isThrownBy { modelD.setMidiChannelIn(-1) }
-                .withMessage("channel: [1, 16]")
-    }
-
-    @Test
-    fun `Throw exception when trying to set MIDI channel in to 17`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-                .isThrownBy { modelD.setMidiChannelIn(17) }
-                .withMessage("channel: [1, 16]")
-    }
-
-    @Test
     fun `Set MIDI channel out to 1`() {
-        modelD.setMidiChannelOut(1)
+        modelD.setMidiChannelOut(MidiChannel._1)
         assertGlobalParameterMessage(2, 0, 0)
     }
 
     @Test
     fun `Set MIDI channel out to 16`() {
-        modelD.setMidiChannelOut(16)
+        modelD.setMidiChannelOut(MidiChannel._16)
         assertGlobalParameterMessage(2, 0, 15)
-    }
-
-    @Test
-    fun `Throw exception when trying to set MIDI channel out to 0`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-                .isThrownBy { modelD.setMidiChannelOut(0) }
-                .withMessage("channel: [1, 16]")
-    }
-
-    @Test
-    fun `Throw exception when trying to set MIDI channel out to 17`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-                .isThrownBy { modelD.setMidiChannelOut(17) }
-                .withMessage("channel: [1, 16]")
     }
 
     @Test
@@ -376,28 +348,14 @@ class ModelDTest {
 
     @Test
     fun `Set MIDI note 0 volts to C0 (MIDI note 0)`() {
-        modelD.setMidiNoteZeroVolts(0)
+        modelD.setMidiNoteZeroVolts(MidiNote(0))
         assertGlobalParameterMessage(18, 0, 0)
     }
 
     @Test
     fun `Set MIDI note 0 volts to G10 (MIDI note 127)`() {
-        modelD.setMidiNoteZeroVolts(127)
+        modelD.setMidiNoteZeroVolts(MidiNote(127))
         assertGlobalParameterMessage(18, 0, 127)
-    }
-
-    @Test
-    fun `Throw exception when trying to set MIDI note 0 volts to negative MIDI note`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-                .isThrownBy { modelD.setMidiNoteZeroVolts(-1) }
-                .withMessage("note: [0, 127]")
-    }
-
-    @Test
-    fun `Throw exception when trying to set MIDI note 0 volts to MIDI note higher than 127`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-                .isThrownBy { modelD.setMidiNoteZeroVolts(128) }
-                .withMessage("note: [0, 127]")
     }
 
     @Test

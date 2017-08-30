@@ -22,11 +22,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.10</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-reflect</artifactId>
                 <version>${kotlin.version}</version>
@@ -41,7 +36,13 @@
                 <artifactId>kotlin-stdlib-jre8</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
 
+            <!-- Logging -->
             <dependency>
                 <groupId>io.github.microutils</groupId>
                 <artifactId>kotlin-logging</artifactId>
