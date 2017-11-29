@@ -1,6 +1,6 @@
 package nl.breun.model_d.core
 
-import mu.KotlinLogging
+import mu.KotlinLogging.logger
 import nl.breun.model_d.core.parameter.*
 import nl.breun.model_d.core.parameter.GlobalParameter.*
 import javax.sound.midi.MidiDevice
@@ -12,12 +12,13 @@ class ModelD(
         //midiIn: MidiDevice,
         val deviceId: DeviceId) {
 
-    private val log = KotlinLogging.logger {}
+    private val log = logger {}
 
     private val receiver: Receiver
     //private val transmitter: Transmitter
 
     init {
+        midiOut.open()
         receiver = midiOut.receiver
         //transmitter = midiIn.transmitter
     }
